@@ -12,7 +12,7 @@ class BaseKnowledgeSource(BaseModel, ABC):
 
     chunk_size: int = 4000
     chunk_overlap: int = 200
-    chunks: list[str] = Field(default_factory=list)
+    chunks: list[dict[str, Any]] = Field(default_factory=list)
     chunk_embeddings: list[np.ndarray] = Field(default_factory=list)
 
     model_config = ConfigDict(arbitrary_types_allowed=True)
@@ -40,8 +40,8 @@ class BaseKnowledgeSource(BaseModel, ABC):
         ]
 
     def _save_documents(self) -> None:
-        """Save the documents to the storage.
-
+        """
+        Save the documents to the storage.
         This method should be called after the chunks and embeddings are generated.
 
         Raises:
